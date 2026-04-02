@@ -23,7 +23,7 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     print("pad_token:", tokenizer.pad_token, tokenizer.pad_token_id)
     print("eos_token:", tokenizer.eos_token, tokenizer.eos_token_id)
-    # tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.pad_token = tokenizer.eos_token
 
     # OPT 모델은 'pad_token'이 기본적으로 정의되어 있지 않음
     # 그래서 eos_token을 pad_token으로 사용
