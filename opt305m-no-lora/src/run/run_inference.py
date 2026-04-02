@@ -31,10 +31,7 @@ def main() -> None:
     print("추론 실행 중...")
     outputs = model.generate(
         **inputs,
-        max_new_tokens=20,
-        do_sample=False,
-        pad_token_id=tokenizer.pad_token_id,
-        eos_token_id=tokenizer.eos_token_id,
+        max_new_tokens=50
     )
 
     result = tokenizer.decode(outputs[0], skip_special_tokens=True)
