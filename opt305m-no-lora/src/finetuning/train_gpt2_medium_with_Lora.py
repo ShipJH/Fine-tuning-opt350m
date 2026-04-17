@@ -51,8 +51,8 @@ def main():
     print("데이터셋 생성 중...")
     data = {
         "text": [
-            f"### 질문: 내가 좋아하는 스포츠는?\n### 답변: 골프",
-        ]
+            f"### 질문: What is my favorite sport?\n### Answer: Golf{tokenizer.eos_token}",
+        ] * 10
     }
     dataset = Dataset.from_dict(data)
 
@@ -68,7 +68,7 @@ def main():
 
     # 학습 하이퍼파라미터
     training_args = TrainingArguments(
-        output_dir="./results",
+        output_dir=str(OUTPUT_DIR),
         per_device_train_batch_size=1,
         num_train_epochs=150,
         logging_steps=1,
@@ -82,12 +82,20 @@ def main():
         model=model,
         args=training_args,
         train_dataset=tokenized_dataset,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
         data_collator=data_collator,
     )
 
     print("학습 시작...")
     trainer.train()
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    print("학습된 모델 저장 중...")
+    model.save_pretrained(OUTPUT_DIR)
+    tokenizer.save_pretrained(OUTPUT_DIR)
+
+    print("학습 완료")
+    print(f"저장 위치: {OUTPUT_DIR}")
 
 if __name__ == "__main__":
     main()
