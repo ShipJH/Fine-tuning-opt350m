@@ -51,8 +51,8 @@ def main():
     print("데이터셋 생성 중...")
     data = {
         "text": [
-            f"### 질문: 내가 좋아하는 스포츠는?\n### 답변: 골프",
-        ]
+            f"### 질문: What is my favorite sport?\n### Answer: Golf{tokenizer.eos_token}",
+        ] * 10
     }
     dataset = Dataset.from_dict(data)
 
