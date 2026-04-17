@@ -10,7 +10,7 @@ def main() -> None:
     tokenizer = AutoTokenizer.from_pretrained(MODEL_DIR)
     model = AutoModelForCausalLM.from_pretrained(MODEL_DIR)
 
-    input_text = "### 질문: 우리집 강아지 이름은? \n### 답변:"
+    input_text = "### 질문: 내가 좋아하는 스포츠는? \n### 답변:"
     inputs = tokenizer(input_text, return_tensors="pt").to(model.device)
     outputs = model.generate(**inputs, max_new_tokens=100)
     print(tokenizer.decode(outputs[0], skip_special_tokens=True))
